@@ -9,11 +9,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestaurantsModule = void 0;
 const common_1 = require("@nestjs/common");
 const restaurants_resolver_1 = require("./restaurants.resolver");
+const restaurants_service_1 = require("./restaurants.service");
+const typeorm_1 = require("@nestjs/typeorm");
+const restaurant_entity_1 = require("./entities/restaurant.entity");
 let RestaurantsModule = class RestaurantsModule {
 };
 RestaurantsModule = __decorate([
     (0, common_1.Module)({
-        providers: [restaurants_resolver_1.RestaurantResolver],
+        imports: [typeorm_1.TypeOrmModule.forFeature([restaurant_entity_1.RestaurantEntity])],
+        providers: [restaurants_resolver_1.RestaurantResolver, restaurants_service_1.RestaurantsService],
     })
 ], RestaurantsModule);
 exports.RestaurantsModule = RestaurantsModule;

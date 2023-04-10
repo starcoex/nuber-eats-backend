@@ -16,32 +16,59 @@ exports.RestaurantResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const restaurant_entity_1 = require("./entities/restaurant.entity");
 const create_restaurant_dto_1 = require("./dtos/create-restaurant.dto");
+const restaurants_service_1 = require("./restaurants.service");
+const update_restaurant_dto_1 = require("./dtos/update-restaurant.dto");
 let RestaurantResolver = class RestaurantResolver {
-    myRestaurant(veganOnly) {
-        console.log(veganOnly);
-        return [];
+    constructor(restaurantService) {
+        this.restaurantService = restaurantService;
     }
-    createRestaurant(createRestaurantDto) {
-        console.log(createRestaurantDto);
-        return true;
+    restaurants() {
+        return this.restaurantService.getAll();
+    }
+    async createRestaurant(createRestaurantDto) {
+        try {
+            await this.restaurantService.createRestaurant(createRestaurantDto);
+            return true;
+        }
+        catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+    async updateRestaurant(updateRestaurantDto) {
+        try {
+            await this.restaurantService.updateRestaurant(updateRestaurantDto);
+            return true;
+        }
+        catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 };
 __decorate([
     (0, graphql_1.Query)((returns) => [restaurant_entity_1.RestaurantEntity]),
-    __param(0, (0, graphql_1.Args)('veganOnly')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Boolean]),
-    __metadata("design:returntype", Array)
-], RestaurantResolver.prototype, "myRestaurant", null);
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], RestaurantResolver.prototype, "restaurants", null);
 __decorate([
     (0, graphql_1.Mutation)((returns) => Boolean),
-    __param(0, (0, graphql_1.Args)()),
+    __param(0, (0, graphql_1.Args)('Inputs')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_restaurant_dto_1.CreateRestaurantDto]),
-    __metadata("design:returntype", Boolean)
+    __metadata("design:returntype", Promise)
 ], RestaurantResolver.prototype, "createRestaurant", null);
+__decorate([
+    (0, graphql_1.Mutation)((returns) => Boolean),
+    __param(0, (0, graphql_1.Args)('input')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_restaurant_dto_1.UpdateRestaurantDto]),
+    __metadata("design:returntype", Promise)
+], RestaurantResolver.prototype, "updateRestaurant", null);
 RestaurantResolver = __decorate([
-    (0, graphql_1.Resolver)((of) => restaurant_entity_1.RestaurantEntity)
+    (0, graphql_1.Resolver)((of) => restaurant_entity_1.RestaurantEntity),
+    __metadata("design:paramtypes", [restaurants_service_1.RestaurantsService])
 ], RestaurantResolver);
 exports.RestaurantResolver = RestaurantResolver;
 //# sourceMappingURL=restaurants.resolver.js.map

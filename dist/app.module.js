@@ -14,6 +14,7 @@ const restaurants_module_1 = require("./restaurants/restaurants.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const config_1 = require("@nestjs/config");
 const Joi = require("joi");
+const restaurant_entity_1 = require("./restaurants/entities/restaurant.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -43,6 +44,7 @@ AppModule = __decorate([
                 logging: true,
                 subscribers: [],
                 migrations: [],
+                entities: [restaurant_entity_1.RestaurantEntity],
             }),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,

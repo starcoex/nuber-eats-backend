@@ -11,26 +11,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestaurantEntity = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const class_validator_1 = require("class-validator");
+const typeorm_1 = require("typeorm");
 let RestaurantEntity = class RestaurantEntity {
 };
 __decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, graphql_1.Field)((type) => Number),
+    __metadata("design:type", Number)
+], RestaurantEntity.prototype, "id", void 0);
+__decorate([
     (0, graphql_1.Field)((type) => String),
+    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(5),
     __metadata("design:type", String)
 ], RestaurantEntity.prototype, "name", void 0);
 __decorate([
     (0, graphql_1.Field)((type) => Boolean),
+    (0, typeorm_1.Column)({ default: true }),
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)
 ], RestaurantEntity.prototype, "isVegan", void 0);
 __decorate([
     (0, graphql_1.Field)((type) => String),
+    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RestaurantEntity.prototype, "address", void 0);
 __decorate([
     (0, graphql_1.Field)((type) => String),
+    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RestaurantEntity.prototype, "ownersName", void 0);
+__decorate([
+    (0, graphql_1.Field)((type) => String),
+    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], RestaurantEntity.prototype, "category", void 0);
 RestaurantEntity = __decorate([
-    (0, graphql_1.ObjectType)()
+    (0, graphql_1.InputType)({ isAbstract: true }),
+    (0, graphql_1.ObjectType)(),
+    (0, typeorm_1.Entity)()
 ], RestaurantEntity);
 exports.RestaurantEntity = RestaurantEntity;
 //# sourceMappingURL=restaurant.entity.js.map
